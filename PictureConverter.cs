@@ -7,10 +7,12 @@ namespace NeuralNetworks
         public int Boundery { get; set; } = 128;
         public int Width { get; set; }
         public int Height { get; set; }
-        public List<int> Convert(string path)
+        public int ImageSize { get; set; } = 10;
+        public double[] Convert(string path)
         {
-            var result = new List<int>();
+            var result = new List<double>();
             var image = new Bitmap(path);
+            image = new Bitmap(image, new Size(ImageSize, ImageSize));
             Height = image.Height;
             Width = image.Width;
 
@@ -23,9 +25,9 @@ namespace NeuralNetworks
                     result.Add(value);
                 }
             }
-            return result;
+            return result.ToArray();
         }
-        public void Save(string path, List<int> pixels)
+        public void Save(string path, double[] pixels)
         {
             var image = new Bitmap(Width, Height);
 
